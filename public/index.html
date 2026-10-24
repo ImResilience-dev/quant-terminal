@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quant Terminal</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232962ff'/%3E%3Cpath d='M7 21l6-7 5 4 7-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap" />
+    <link rel="stylesheet" href="/css/app.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand" title="Quant Terminal">
+        <svg viewBox="0 0 32 32" width="22" height="22">
+          <rect width="32" height="32" rx="7" fill="var(--accent)" />
+          <path
+            d="M7 21l6-7 5 4 7-9"
+            stroke="#fff"
+            stroke-width="3"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+      <button
+        id="symbolBtn"
+        class="tb symbol-btn"
+        title="Change symbol (or just start typing)"
+      >
+        <span id="symbolLabel">BTCUSDT</span>
+      </button>
+      <div class="sep"></div>
+      <div id="tfButtons" class="tf-group"></div>
+      <input
+        id="tfCustom"
+        class="tf-custom"
+        placeholder="7m"
+        title="Any timeframe: 1s, 7m, 2h, 3D, 2W, 3M"
+        size="4"
+      />
+      <div class="sep"></div>
+      <select id="chartType" class="tb" title="Chart type"></select>
+      <button id="indicatorsBtn" class="tb" title="Indicators">
+        <svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 3 6-8 3 3" /></svg
+        ><span>Indicators</span>
+      </button>
+      <button id="compareBtn" class="tb" title="Compare symbols">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="8" />
+          <path d="M12 6v12M6 12h12" /></svg
+        ><span>Compare</span>
+      </button>
+      <div class="sep"></div>
+      <select id="layoutSel" class="tb" title="Chart layout">
+        <option value="1">1 chart</option>
+        <option value="2v">2 side by side</option>
+        <option value="2h">2 stacked</option>
+        <option value="3">3 charts</option>
+        <option value="4">4 charts</option>
+        <option value="6">6 charts</option>
+        <option value="8">8 charts</option>
+        <option value="16">16 charts</option>
+      </select>
+      <label class="tb check" title="Change the symbol on every chart at once"
+        ><input type="checkbox" id="syncSymbol" /> Sync</label
+      >
+      <button id="replayBtn" class="tb" title="Bar replay">
+        <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4" /></svg
+        ><span>Replay</span>
+      </button>
+      <button id="alertBtn" class="tb" title="Create alert">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4zM10 20h4" /></svg
+        ><span>Alert</span>
+      </button>
+      <div class="spacer"></div>
+      <a
+        class="tb"
+        href="https://part-timequant.com/tradingview/help"
+        target="_blank"
+        rel="noopener"
+        title="What's new, how to update, and common questions"
+        >Help</a
+      >
+      <button id="logBtn" class="tb" title="Logarithmic price scale">
+        Log
+      </button>
+      <button id="snapBtn" class="tb icon" title="Download chart image">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="6" width="18" height="14" rx="2" />
+          <circle cx="12" cy="13" r="3.5" />
+          <path d="M8 6l2-3h4l2 3" />
+        </svg>
+      </button>
+      <button id="csvBtn" class="tb icon" title="Export chart data (CSV)">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 4v11M7 10l5 5 5-5M5 20h14" />
+        </svg>
+      </button>
+      <button id="settingsBtn" class="tb icon" title="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+    <button id="themeBtn" class="tb icon" title="Light / dark">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" />
+        </svg>
+      </button>
+      <span id="status" class="status" title="Data status"></span>
+    </header>
+
+    <div id="ribbon" class="ribbon hidden"><!-- ovr-banner -->
+    <span class="ribbon-badge">IMIT OVR</span>
+    <span><b>Edge &rarr; Control &rarr; Acceptance &rarr; Delivery &rarr; Exhaustion &rarr; Reset.</b> Read in order: Structure, Control, Confirmation, Risk.</span>
+    <button class="ovr-btn" id="ovr-open" type="button">Playbook</button>
+    <button class="ribbon-x" title="Hide for a week" aria-label="Hide">&times;</button>
+  </div>
+  <div class="main">
+      <nav class="drawbar" id="drawbar"></nav>
+      <section class="center">
+        <div id="grid" class="grid"></div>
+        <div id="bottom" class="bottom collapsed">
+          <div class="tabs" id="bottomTabs">
+            <button data-tab="tester" class="active">Strategy tester</button>
+            <button data-tab="screener">Screener</button>
+            <button data-tab="heatmap">Heatmap</button>
+            <button data-tab="seasonals">Seasonals</button>
+            <button data-tab="financials">Financials</button>
+            <button data-tab="paper">Paper trading</button>
+            <button data-tab="editor">Indicator editor</button>
+          <button data-tab="ptq">PTQ</button>
+            <div class="spacer"></div>
+            <button id="bottomToggle" class="icon" title="Show / hide panel">
+              <svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6" /></svg>
+            </button>
+          </div>
+          <div class="tab-body" id="bottomBody"></div>
+        </div>
+      </section>
+      <aside class="side">
+        <div class="tabs" id="sideTabs">
+          <button data-tab="watchlist" class="active">Watchlist</button>
+          <button data-tab="alerts">Alerts</button>
+          <button data-tab="calendar">Calendar</button>
+          <button data-tab="news">News</button>
+        </div>
+        <div class="tab-body" id="sideBody"></div>
+      </aside>
+    </div>
+
+    <div id="modal" class="modal hidden">
+      <div class="modal-card" id="modalCard"></div>
+    </div>
+    <div id="toasts" class="toasts"></div>
+
+    <script src="/vendor/lightweight-charts.standalone.production.js"></script>
+    <script type="module" src="/js/app.js"></script>
+  <!-- ovr-dialog-start -->
+<link rel="stylesheet" href="/css/ovr.css">
+<dialog id="ovr-dialog" class="ovr-dialog">
+  <div class="ovr-head"><h2>IMIT OVR Playbook</h2><button class="ovr-x" type="button" aria-label="Close">&times;</button></div>
+  <div class="ovr-body">
+  <h3>The loop</h3>
+  <p>Edge (a sweep fails) &rarr; Control (Reclaim Hold) &rarr; Acceptance (Control Defense) &rarr; Delivery (Displacement) &rarr; Exhaustion &rarr; Reset (Compression, Balance or Completion).</p>
+  <h3>Reading order, every time</h3>
+  <p><b>1 Structure:</b> which state is active. <b>2 Control:</b> who holds the auction. <b>3 Confirmation:</b> is participation backing the move. <b>4 Risk:</b> do conditions support it.</p>
+  <h3>A setup needs all four</h3>
+  <p>Control confirmed by a Reclaim Hold or Control Defense. An unfilled imbalance in the path. The sequence intact, not in Exhaustion. Risk conditions supporting: session window, distance from control, key levels.</p>
+  <h3>Setups</h3>
+  <div class="ovr-scroll"><table class="ovr-table"><thead><tr><th></th><th>Setup</th><th>Entry</th><th>Invalid when</th></tr></thead><tbody><tr><td><b>B1</b></td><td>Reclaim + overhead imbalance<br><span class="ovr-dim">Bull, Tier 4-5</span></td><td>After the first Control Defense holds, enter on the pullback that tests the reclaim. Target is the imbalance above.</td><td>Close back below the reclaim level.</td></tr><tr><td><b>B2</b></td><td>Control Defense continuation<br><span class="ovr-dim">Bull, Tier 4</span></td><td>Enter as the Defense resolves upward. First target is the Displacement imbalance above.</td><td>Price breaks below control instead of bouncing.</td></tr><tr><td><b>B3</b></td><td>Trap reversal, bull side<br><span class="ovr-dim">Bull, Tier 4-5</span></td><td>Bear Sweep, then Bull Reclaim Hold. Enter on the pullback to the reclaim after Control Defense.</td><td>Reclaim fails, or a second Bear Reclaim Hold forms lower.</td></tr><tr><td><b>S1</b></td><td>Reclaim + imbalance below<br><span class="ovr-dim">Bear, Tier 4-5</span></td><td>After Bear Control Defense, enter on the failed rally back to control. Target is the imbalance below.</td><td>Close back above the reclaim level.</td></tr><tr><td><b>S2</b></td><td>Control Defense continuation<br><span class="ovr-dim">Bear, Tier 4</span></td><td>Enter as the Defense resolves downward. First target is the Displacement imbalance below.</td><td>Price breaks above control instead of rejecting.</td></tr><tr><td><b>S3</b></td><td>Trap reversal, bear side<br><span class="ovr-dim">Bear, Tier 4-5</span></td><td>Bull Sweep, then Bear Reclaim Hold. Enter on the failed rally to the reclaim after Control Defense.</td><td>Reclaim fails, or a Bull Reclaim Hold forms.</td></tr><tr><td><b>N1</b></td><td>Compression break<br><span class="ovr-dim">Neutral, Tier 4</span></td><td>Do not trade the compression. Wait for a Reclaim Hold out of it, then apply B1 or S1 after the Control Defense.</td><td>Break without a Reclaim Hold is a false break.</td></tr><tr><td><b>N2</b></td><td>Balance displacement breakout<br><span class="ovr-dim">Neutral, Tier 4-5</span></td><td>After a Displacement closes outside the range and the next candle holds, enter the first pullback to the range edge.</td><td>Next candle fully returns inside the range.</td></tr></tbody></table></div>
+  <h3>Size by tier</h3>
+  <p>Tier 3 or below: observe only. Tier 4: one entry at reduced size. Tier 5: full size, and only when all four elements agree. The farther price is from the Reclaim Hold, the smaller the size. At Exhaustion, size is zero. The 9am and 3pm windows carry full weight, 6pm is reduced, overnight is Tier 3 at best. One imbalance target at a time.</p>
+  <h3>Managing the trade</h3>
+  <p>In Delivery, do not add and do not tighten into the body. Move the stop to the latest Control Defense. Displacement is not an entry; wait for the retest. Retaliation that closes in your direction means the thesis is intact. Near Exhaustion, no adds, tighten, and consider a partial exit. If delivery fails mid-arc, exit, reset bias to neutral and read the new sequence.</p>
+  <details><summary>All 19 states</summary>
+  <p><b>Bullish, buyers in control:</b> Sweep, Reclaim Hold, Control Defense, Delivery, Displacement, Retaliation, Exhaustion.</p>
+  <p><b>Bearish, sellers in control:</b> the same seven, mirrored.</p>
+  <p><b>Neutral, control contested:</b> Compression, Balance, Indecision, Completion.</p>
+  <p>Do not trade the sweep. Bias moves at the Reclaim Hold, not before. Delivery is management, not entry. Do not fade Displacement. Retaliation means the thesis is intact. Exhaustion means no new entries.</p>
+  </details>
+  <details><summary>The five sequences</summary>
+  <p><b>1 Bullish:</b> Sweep, Reclaim Hold, Control Defense, Delivery, Displacement, Retaliation, Exhaustion.</p>
+  <p><b>2 Bearish:</b> the mirror of the bullish arc.</p>
+  <p><b>3 Trap:</b> a sweep, no reclaim, failed participation, then exhaustion or reset. Often the setup for the opposite direction. Most reactive losses come from trading the sweep as if it were a reclaim.</p>
+  <p><b>4 Trend continuation:</b> Control Defense, Displacement, Delivery. No sweep needed because the regime is already set. One of the highest-confidence continuation reads.</p>
+  <p><b>5 End of move:</b> Delivery, Exhaustion, then Compression, Balance or Completion. Stop pressing and wait for the next chapter.</p>
+  </details>
+  <details><summary>When control shifts</summary>
+  <p>Bull Sweep then Bear Reclaim Hold (or the mirror): trap sequence, drop the old bias at once. Bull or Bear Exhaustion then Compression: wait. Compression then a Reclaim Hold either way: the new regime has begun and bias moves there. Bull Delivery then Bear Sweep (or the mirror): a full trap, the highest-probability setup for the other side. Bull Control Defense then Bear Reclaim Hold (or the mirror): the defense failed and the old thesis is invalid. Completion then Compression: the natural reset. Balance then Displacement either way: a high-confidence breakout.</p>
+  <p>Disruption is information, not failure. Holding a bias through a confirmed disruption is denial.</p>
+  </details>
+  <details><summary>Operator discipline</summary>
+  <p><b>Observation.</b> Read the state before anything else. The four-layer order is a loop that restarts on every state change or disruption. Waiting is an action. Compression and balance say wait. The first twenty minutes of the 9am session is a diagnostic: initiative or responsive, carried from the prior session, balanced or directional.</p>
+  <div class="ovr-scroll"><table class="ovr-table"><thead><tr><th>Situation</th><th>Reactor</th><th>Operator</th></tr></thead><tbody><tr><td>Delivery is in progress</td><td>Chases the move.</td><td>Observes, notes the target, prepares for the post-delivery structure.</td></tr><tr><td>Stopped out of a valid setup</td><td>Re-enters at once.</td><td>Checks whether structure changed at the stop. If Control Defense broke, stays out. If it held, waits for re-confirmation.</td></tr><tr><td>Slow session, no setups</td><td>Enters something to feel involved.</td><td>Does not trade. No Tier 4-5 condition means no session. Observation is a valid outcome.</td></tr><tr><td>The move went without them</td><td>Chases late, near Exhaustion.</td><td>Accepts the miss. The next sequence makes another window.</td></tr><tr><td>In profit, short of target</td><td>Takes profit early.</td><td>Stop at the structural anchor, target at the imbalance. Exits when structure says so.</td></tr><tr><td>A compelling candle outside the states</td><td>Trades the pattern.</td><td>Runs the four-layer check. Any missing element means no trade.</td></tr><tr><td>Right thesis, losing trade</td><td>Confused and frustrated.</td><td>Audits the process, not the outcome.</td></tr></tbody></table></div>
+  <p><b>Ten core values.</b> Structural: state before setup, sequence awareness, disruption recognition. Process: tier before size, entry from confirmation not anticipation, exit from structure not emotion, process audit over result audit. Identity: identity before strategy, the market as teacher, the mentorless deserve structure.</p>
+  <p><b>The path.</b> Reactor, Seeker, Narrator, Structural Perceiver, Operator, Fund Manager, Cartographer. Stage is set by behavior under pressure, not years or account size.</p>
+  </details>
+  <p class="ovr-foot"><b>State without imbalance = context. Imbalance without state = noise. Both together = setup.</b><br>From the OVRstanding Group playbook. Educational only, not financial advice.</p>
+  </div>
+</dialog>
+<script src="/js/ovr.js" defer></script>
+<!-- ovr-dialog-end -->
+  </body>
+</html>

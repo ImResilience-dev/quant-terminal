@@ -1,0 +1,19 @@
+/* ovr-banner */
+.ovr-btn { flex: none; background: #087ee5; color: #fff; font-weight: 600; font-size: 12px; padding: 7px 16px; border-radius: 999px; border: 0; cursor: pointer; }
+.ovr-btn:hover { filter: brightness(0.93); }
+.ovr-dialog { width: min(900px, 94vw); max-height: 88vh; padding: 0; border: 1px solid var(--border); border-radius: 10px; background: var(--panel); color: var(--text); }
+.ovr-dialog::backdrop { background: rgba(0, 0, 0, 0.6); }
+.ovr-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--panel); }
+.ovr-head h2 { margin: 0; font-size: 16px; }
+.ovr-x { border: 0; background: transparent; color: var(--muted); font-size: 22px; cursor: pointer; }
+.ovr-body { padding: 4px 18px 16px; font-size: 13px; line-height: 1.5; overflow: auto; max-height: calc(88vh - 54px); }
+.ovr-body h3 { margin: 16px 0 4px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.ovr-body p { margin: 0; }
+.ovr-scroll { overflow-x: auto; }
+.ovr-table { border-collapse: collapse; width: 100%; font-size: 12px; }
+.ovr-table th, .ovr-table td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+.ovr-dim { color: var(--muted); }
+.ovr-body details { border-top: 1px solid var(--border); margin-top: 10px; padding-top: 8px; }
+.ovr-body summary { cursor: pointer; font-weight: 600; margin-bottom: 6px; }
+.ovr-body details p { margin: 6px 0; }
+.ovr-foot { margin-top: 16px !important; color: var(--muted); }
