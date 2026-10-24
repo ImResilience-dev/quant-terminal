@@ -1,3 +1,5 @@
+> Modified copy of Quant Terminal by Lewis Jackson (MIT). See [MODIFICATIONS.md](MODIFICATIONS.md).
+
 # Quant Terminal
 
 A free trading terminal that runs on your own computer: charts, 87 indicators, 13 drawing tools, alerts, a screener, a heatmap, seasonals, earnings and dividend calendars, news, company financials, a strategy tester with quant checks, bar replay and paper trading. No account, no subscription, no ads, no limit on indicators per chart.
